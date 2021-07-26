@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Code Viewer</title>
+    <script src="jquery.js"></script>
+
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="app.css">
+    <!-- files included for text highlighting inside the textarea field -->
+<!--     <script src="dist/jquery-highlighttextarea/jquery.highlighttextarea.js"></script>
+    <link rel="stylesheet" href="dist/jquery-ui/theme/jquery-ui.min.css">
+    <link rel="stylesheet" href="dist/jquery-highlighttextarea/jquery.highlighttextarea.min.css"> -->
+</head>
+
+<body>
+    <script>
+        $(document).ready (function () {
+            $(document).keydown (function (event) {
+                if (event.key === "f" && event.ctrlKey) {
+                    // to prevent default ctrl+f functionality of the browser.
+                    event.preventDefault();
+                    $("#search").focus ();
+                }
+            });
+        });
+    </script>
+
+    <div class="body-div">
+
+        <!-- div for left panel -->
+        <div class="left-panel-div">
+
+            <!-- div for nav bar. -->
+            <div class="nav-bar-div">
+
+                <script>
+                    // load the selected source code in the source-code-field
+                    $(document).ready (function () {
+                        // when the document gets ready
+                        $("#file-dialogue-box").change (function () {
+                            // when the new file is selected.
+                            var source_code_field = document.getElementById ("source-code-field");
+                            // empty the text field first.
+                            source_code_field.value = "";
+
+                            // read the opened file.
+                            var filereader = new FileReader ();
+                            // whenever the file gets loaded
+
+                            filereader.onload = function (event) {
+                                source_code_field.value = event.target.result;
+                            };
+
+                            filereader.readAsText (this.files[0]);
+                        });
+                    });
+                </script>
+
+                <!-- div for file choosing -->
+                <input type="file" id="file-dialogue-box">
+
+                <script type="text/javascript">
+                    $(document).ready (function () {
+                        $("#search").keypress (function (event) {
+                            // while someone searches using some keyword.
+                            var enter_key = event.which;
+                            if (enter_key === 13) {
+                                // fetch the searched values.
+                                var searched_words = document.getElementById ("search").value;
+                            }
+                        });
+                    });
+                </script>
+
+                <!-- search field -->
+                <input name="searched-text" id="search" placeholder="Search Here..."></input>
+            </div>
+
+            <!-- div for file explorer -->
+            <div class="file-history-div">
+
+            </div>
+
+        </div>
+
+        <!-- right panel -->
+        <div class="right-panel-div">
+
+            <!-- source code area. -->
+            <textarea name="" id="source-code-field" placeholder="Source Code will be shown here..." readonly></textarea>
+
+        </div>
+    </div>
+</body>
+
+</html>
